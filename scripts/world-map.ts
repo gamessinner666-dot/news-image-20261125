@@ -74,7 +74,7 @@ export function renderWorldMapSvg(): string {
       ${pinsSvg}
 
       <!-- Subtle map footer captions -->
-      <text x="6" y="178" font-family="Segoe UI,Arial,sans-serif" font-size="6.3" font-weight="700" fill="#64748B">28 GEO PINS · NUMBERED TO STORIES</text>
+      <text x="6" y="178" font-family="Segoe UI,Arial,sans-serif" font-size="6.3" font-weight="700" fill="#64748B">32 GEO PINS · NUMBERED TO STORIES</text>
       <text x="330" y="178" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="6.3" font-weight="700" fill="#475569">HEROES #1–#3 ENLARGED</text>
     </g>
   </svg>`;

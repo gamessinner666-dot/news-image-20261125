@@ -471,38 +471,42 @@ function buildHtml(): string {
   }
   .dig-row {
     display: flex;
-    align-items: flex-start;
-    gap: 3.5px;
-    font-size: 7.6px;
-    line-height: 1.18;
+    align-items: center;
+    gap: 3px;
+    font-size: 7.05px;
+    line-height: 1.05;
     color: #1C1917;
     min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
   }
   .dig-num {
-    width: 12.5px;
-    height: 12.5px;
+    width: 11.5px;
+    height: 11.5px;
     border-radius: 50%;
     color: #FFF;
-    font-size: 6.5px;
+    font-size: 6.1px;
     font-weight: 800;
     display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    margin-top: 0.5px;
   }
   .dig-epi {
-    font-size: 5.5px;
+    font-size: 5.1px;
     font-weight: 800;
-    padding: 0.6px 2.8px;
+    padding: 0.4px 2.3px;
     border-radius: 2px;
     border: 0.5px solid transparent;
     flex-shrink: 0;
-    margin-top: 1px;
   }
-  .dig-text { min-width: 0; }
+  .dig-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .dig-text strong { color: #0F172A; font-weight: 800; }
-  .dig-text em { font-style: normal; color: #64748B; font-size: 6.7px; font-weight: 600; }
+  .dig-text em { font-style: normal; color: #64748B; font-size: 6.3px; font-weight: 600; }
 
   /* DATE CHECK AUDIT BOX */
   .date-check {
@@ -575,18 +579,18 @@ function buildHtml(): string {
 
     <section class="bottom-grid">
       <div class="panel">
-        <div class="panel-title">WORLD LOCATOR MAP <span>Color-coded by region</span></div>
+        <div class="panel-title">WORLD LOCATOR MAP <span>32 geo pins · color-coded by region</span></div>
         ${renderWorldMapSvg()}
         <div class="space-pills">
-          <div class="sp-pill">#4 LEO · SpaceX 1M Sats</div>
-          <div class="sp-pill">#5 Orbit · Tiangong CN/PK</div>
-          <div class="sp-pill">#19–20 Global Tech &amp; UN</div>
+          <div class="sp-pill">#5 LEO · SpaceX 1M Sats</div>
+          <div class="sp-pill">#4 Orbit · Tiangong CN/PK</div>
+          <div class="sp-pill">#45–46 Global Tech &amp; UN</div>
         </div>
         <div class="map-legend">${legendHtml}</div>
       </div>
 
       <div class="panel">
-        <div class="panel-title">MORE WORLD NEWS — 24 VERIFIED BRIEFS <span>12 + 12 symmetrical · all 9 regions · verified 25 Nov 2026</span></div>
+        <div class="panel-title">MORE WORLD NEWS — 34 VERIFIED SINGLE-LINE BRIEFS <span>17 + 17 symmetrical · all 9 regions · 16+ fields</span></div>
         <div class="digest-cols">
           <div class="dig-col">${digestLeftHtml}</div>
           <div class="dig-col">${digestRightHtml}</div>
