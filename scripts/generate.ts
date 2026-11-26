@@ -127,10 +127,12 @@ function buildHtml(): string {
 
   const renderDigestRow = (d: DigestStory): string => {
     const color = REGION_MAP[d.region].color;
-    const claimPill = d.claim ? `<span class="claim-tag">CLAIM</span>` : '';
+    const tagPill = d.tag
+      ? `<span class="dig-tag" style="${epistemicStyle(d.tag)}">${d.tag}</span>`
+      : '';
     return `<div class="dig-row">
       <span class="dig-num" style="background:${color}">${d.num}</span>
-      <span class="dig-text"><strong>${esc(d.place)}</strong> ${esc(d.text)}</span>${claimPill}
+      <span class="dig-text"><strong>${esc(d.place)}</strong> ${esc(d.text)}</span>${tagPill}
     </div>`;
   };
 
@@ -250,7 +252,7 @@ function buildHtml(): string {
   .kpi-item:last-child { border-right: none; }
   .kpi-val {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 22px;
+    font-size: 23px;
     font-weight: 800;
     line-height: 0.95;
     letter-spacing: -0.5px;
@@ -294,7 +296,7 @@ function buildHtml(): string {
   }
   .hero-col:first-child { padding-left: 0; }
   .hero-col:last-child { padding-right: 0; border-right: none; }
-  .hero-art { width: 100%; height: 104px; }
+  .hero-art { width: 100%; height: 104px; outline: 0.7px solid #C8BEA8; outline-offset: -0.7px; }
   .hero-meta {
     display: flex;
     justify-content: space-between;
@@ -353,7 +355,7 @@ function buildHtml(): string {
   .med-col-last { padding-right: 0; border-right: none; }
   .med-row-top { padding-bottom: 4.5px; border-bottom: 0.7px solid #E2D9C7; }
   .med-row-bot { padding-top: 4.5px; }
-  .med-art { width: 100%; height: 60px; }
+  .med-art { width: 100%; height: 60px; outline: 0.7px solid #C8BEA8; outline-offset: -0.7px; }
   .med-meta {
     display: flex;
     justify-content: space-between;
@@ -491,13 +493,11 @@ function buildHtml(): string {
   }
   .dig-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
   .dig-text strong { color: #0F172A; font-weight: 800; margin-right: 2px; }
-  .claim-tag {
+  .dig-tag {
     margin-left: auto;
-    font-size: 5.5px;
+    font-size: 5.4px;
     font-weight: 800;
-    color: #991B1B;
-    background: #FEE2E2;
-    border: 0.6px solid #B91C1C;
+    border: 0.6px solid transparent;
     border-radius: 2px;
     padding: 0.4px 2.5px;
     flex-shrink: 0;

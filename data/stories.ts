@@ -78,7 +78,7 @@ export interface DigestStory {
   field: NewsField;
   place: string;
   text: string;
-  claim?: boolean;
+  tag?: 'CLAIM' | 'REPORTED';
 }
 
 export interface KeyMetric {
@@ -122,7 +122,7 @@ export const REGION_MAP: Record<RegionId, RegionMeta> = Object.fromEntries(
 
 export const KEY_METRICS: KeyMetric[] = [
   { value: '14', line1: 'economies targeted by', line2: '15%–35% US tariffs', color: '#0F766E' },
-  { value: '–6.2%', line1: 'Seoul Kospi close,', line2: 'worst AI chip rout', color: '#B91C1C' },
+  { value: '–6.2%', line1: 'Seoul Kospi close on', line2: 'AI spending doubts', color: '#B91C1C' },
   { value: '+26%', line1: 'UK energy cap hike', line2: 'to £2,166 from Jan 1', color: '#1D4ED8' },
   { value: '31+', line1: 'killed in Cairo', line2: 'Ring Road tanker fire', color: '#15803D' },
   { value: '9', line1: 'dead, 17 trapped in', line2: 'Java flooded gold pit', color: '#C2410C' },
@@ -149,8 +149,8 @@ export const HERO_STORIES: HeroStory[] = [
     epistemic: 'OFFICIAL',
     headline: 'US proposes 15%–35% tariffs on 14 trading partners',
     summary:
-      'USTR targets excess capacity: 35% Vietnam, 25% India, 20% China (40% alt), 18–20% ASEAN, 15% EU, Japan, S.Korea & Taiwan; hearings Jan 25, 2027.',
-    whyItMatters: 'Widest US Section 301 push since earlier global duties fell',
+      'USTR cites excess industrial capacity: 35% Vietnam, 25% India, 20% China base, 18–20% ASEAN, 15% EU, Japan, S.Korea & Taiwan; hearings Jan 25, 2027.',
+    whyItMatters: 'Broadest US Section 301 tariff sweep across 14 economies',
     graphicKey: 'tariffs',
   },
   {
@@ -295,8 +295,8 @@ export const MEDIUM_STORIES: MediumStory[] = [
 // 36 clean single-story dateline briefs (strictly 1 line = 1 story = 1 dateline; 18 left + 18 right = 49 total)
 export const DIGEST_LEFT: DigestStory[] = [
   { num: 14, region: 'EU', field: 'War', place: 'Samara', text: 'Ukrainian drones strike Syzran & Kuibyshev Rosneft refineries' },
-  { num: 15, region: 'EU', field: 'War', place: 'Savasleyka', text: 'Ukraine says raid hit 3 MiG-31s & 2 Su-34s at Russian base', claim: true },
-  { num: 16, region: 'EU', field: 'War', place: 'Moscow', text: 'Leaked Rosstat files count 490,334 war dead (BBC/Mediazona)' },
+  { num: 15, region: 'EU', field: 'War', place: 'Savasleyka', text: 'Ukraine says raid hit 3 MiG-31s & 2 Su-34s at Russian base', tag: 'CLAIM' },
+  { num: 16, region: 'EU', field: 'War', place: 'Moscow', text: 'Leaked Rosstat files count 490,334 war dead (BBC/Mediazona)', tag: 'REPORTED' },
   { num: 17, region: 'EU', field: 'Security', place: 'Warsaw', text: 'Poland plans Ukraine-border no-fly zone after Russian drones' },
   { num: 18, region: 'EU', field: 'Economy', place: 'London', text: 'Poundland enters administration, putting 10,000+ UK jobs at risk' },
   { num: 19, region: 'EU', field: 'Justice', place: 'London', text: 'Fairfield review finds Met Police still institutionally racist' },
@@ -305,8 +305,8 @@ export const DIGEST_LEFT: DigestStory[] = [
   { num: 22, region: 'EU', field: 'Tech', place: 'Brussels', text: 'EU proposes €50bn Quantum Act to scale European computing' },
   { num: 23, region: 'EU', field: 'Rights', place: 'Canary Is.', text: 'Record 1,990 migrants land on 15 boats in a single day' },
   { num: 24, region: 'EU', field: 'Sport', place: 'Europe', text: 'UCL Wed: Lille 2–1 Bayern, PSG 2–2 Roma, Liverpool 3–0 Brugge' },
-  { num: 25, region: 'ME', field: 'War', place: 'Hormuz', text: 'IRGC says two unnamed tankers hit mines and caught fire', claim: true },
-  { num: 26, region: 'ME', field: 'Economy', place: 'Jerusalem', text: 'Israel panel approves $5bn defense hike (NIS 17.3bn) for 2026' },
+  { num: 25, region: 'ME', field: 'War', place: 'Hormuz', text: 'IRGC says two unnamed tankers hit mines and caught fire', tag: 'CLAIM' },
+  { num: 26, region: 'ME', field: 'Economy', place: 'Jerusalem', text: 'Israel panel approves $5bn (NIS 17.3bn) extra defense hike' },
   { num: 27, region: 'ME', field: 'Security', place: 'Hasakah', text: 'ISIS motorcycle suicide blast kills 2 Syrian officers, wounds 5' },
   { num: 28, region: 'ME', field: 'Rights', place: 'Geneva', text: 'UN rights chief Volker Türk warns of Gaza & West Bank atrocities' },
   { num: 29, region: 'EA', field: 'Diplomacy', place: 'Pyongyang', text: 'North Korea gives Swiss envoy Sylvain Astier 48 hours to leave' },
@@ -321,10 +321,10 @@ export const DIGEST_RIGHT: DigestStory[] = [
   { num: 35, region: 'SA', field: 'Disaster', place: 'Karachi', text: 'Residential building collapse kills 3 and injures 14 in rescue' },
   { num: 36, region: 'AF', field: 'War', place: 'Ed Damazin', text: 'RSF suicide drones hit Sudan’s Blue Nile, killing up to 19' },
   { num: 37, region: 'AF', field: 'Diplomacy', place: 'Benghazi', text: 'Italy rebukes Kyiv after Ukraine drone raid kills 2 Libyan officers' },
-  { num: 38, region: 'AF', field: 'Health', place: 'Eastern DRC', text: 'Clashes force Ebola medics to evacuate amid 11,700+ cases' },
+  { num: 38, region: 'AF', field: 'Health', place: 'Eastern DRC', text: 'UN peacekeepers evacuate WHO Ebola medics in Ituri amid clashes' },
   { num: 39, region: 'AF', field: 'Sport', place: 'Centurion', text: 'South Africa sweep Bangladesh by an innings and 219 runs' },
   { num: 40, region: 'AF', field: 'Culture', place: 'Enugu', text: 'Veteran Nollywood actor Pete Edochie dies aged 79' },
-  { num: 41, region: 'NA', field: 'Markets', place: 'Washington', text: 'US Q3 GDP revised to 4.3%; Oct PCE 3.8%; Dow holds 50,183' },
+  { num: 41, region: 'NA', field: 'Markets', place: 'Washington', text: 'US Q3 GDP revised up to 4.3%; Oct PCE inflation climbs to 3.8%' },
   { num: 42, region: 'NA', field: 'Climate', place: 'California', text: 'King tides wreck Pacifica Pier as coastal flood alerts hit coast' },
   { num: 43, region: 'NA', field: 'Diplomacy', place: 'Ottawa', text: 'PM Mark Carney rejects Pentagon defense-spending critique' },
   { num: 44, region: 'LA', field: 'Security', place: 'Cartagena', text: 'Police end 17-hour Éxito siege, freeing 70+ supermarket hostages' },
