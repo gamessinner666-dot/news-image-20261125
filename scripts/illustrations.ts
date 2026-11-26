@@ -1,330 +1,332 @@
-// 13 bespoke, bright Economist/BBC-style code-drawn SVG illustrations & data graphics for Wednesday 25 November 2026.
-// Zero flat text-only tiles: every card pairs clean vector iconography/maps/charts with inline numeric callouts.
+// 13 full-bleed editorial pictorial SVG illustrations for Wednesday 25 November 2026.
+// Drawn from scratch in crisp Economist/BBC editorial vector style: ships, microchips, space station,
+// tankers, bills, mines, refineries, power pylons, flags, factories, courthouses, and skylines.
 
-export function renderHeroGraphic(key: 'ustr' | 'hormuz' | 'rosstat'): string {
-  if (key === 'ustr') {
-    const bars = [
-      { label: 'China (alt)', text: '40% alt / 20% base', color: '#B91C1C', w: 146 },
-      { label: 'Vietnam', text: '35%', color: '#C2410C', w: 128 },
-      { label: 'India', text: '25%', color: '#D97706', w: 92 },
-      { label: 'ASEAN-4', text: '18–20%', color: '#0F766E', w: 73 },
-      { label: 'EU·JP·KR·TW', text: '15% cap', color: '#1D4ED8', w: 55 },
-    ];
-    const rows = bars
-      .map((b, i) => {
-        const y = 20 + i * 13.8;
-        return `
-          <text x="58" y="${(y + 8.3).toFixed(1)}" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="7.1" font-weight="700" fill="#1E293B">${b.label}</text>
-          <rect x="62" y="${y.toFixed(1)}" width="150" height="10" rx="1.6" fill="#E2ECE9"/>
-          <rect x="62" y="${y.toFixed(1)}" width="${b.w}" height="10" rx="1.6" fill="${b.color}"/>
-          <text x="${(62 + b.w + 4.5).toFixed(1)}" y="${(y + 8.1).toFixed(1)}" font-family="Segoe UI,Arial,sans-serif" font-size="7.1" font-weight="800" fill="#0F172A">${b.text}</text>
-        `;
-      })
-      .join('');
-    return `<svg viewBox="0 0 300 94" width="100%" height="94" xmlns="http://www.w3.org/2000/svg">
-      <rect width="300" height="94" rx="4" fill="#F2FBF9" stroke="#B7E4DB" stroke-width="0.9"/>
-      <text x="8" y="12.5" font-family="Segoe UI,Arial,sans-serif" font-size="7.5" font-weight="800" fill="#0F766E" letter-spacing="0.35">USTR SECTION 301 · PROPOSED CEILINGS</text>
-      <rect x="217" y="3.5" width="77" height="12.5" rx="2.5" fill="#0F766E"/>
-      <text x="255.5" y="12" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.1" font-weight="800" fill="#FFFFFF">14 ECONOMIES</text>
-      <line x1="62" y1="18" x2="62" y2="88" stroke="#94A3B8" stroke-width="0.75"/>
-      <line x1="135" y1="18" x2="135" y2="88" stroke="#CBD5E1" stroke-width="0.6" stroke-dasharray="2,2"/>
-      <line x1="208" y1="18" x2="208" y2="88" stroke="#CBD5E1" stroke-width="0.6" stroke-dasharray="2,2"/>
-      ${rows}
-      <text x="294" y="89" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="700" fill="#475569">Hearings: Jan 25, 2027</text>
+export function renderHeroGraphic(key: 'tariffs' | 'chiprout' | 'tiangong'): string {
+  if (key === 'tariffs') {
+    // Full-bleed container ship crossing ocean carrying tariff-labeled shipping containers
+    return `<svg viewBox="0 0 316 104" width="100%" height="104" xmlns="http://www.w3.org/2000/svg">
+      <!-- Bright editorial sky & sea -->
+      <rect width="316" height="72" fill="#E6F0F7"/>
+      <rect y="72" width="316" height="32" fill="#2D6A9F"/>
+      <path d="M0,78 Q38,74 76,78 T152,78 T228,78 T316,78" fill="none" stroke="#60A5FA" stroke-width="1.3" stroke-opacity="0.5"/>
+      <path d="M18,90 Q60,86 102,90 T186,90 T270,90" fill="none" stroke="#93C5FD" stroke-width="1" stroke-opacity="0.4"/>
+      <!-- Port crane silhouette on right -->
+      <path d="M266,72 L274,20 L282,72 M254,24 L308,24 M274,24 L298,42" fill="none" stroke="#94A3B8" stroke-width="2.2"/>
+      <!-- Ship hull & bridge -->
+      <path d="M24,62 L236,62 L222,82 L40,82 Z" fill="#1E293B"/>
+      <path d="M35,75 L226,75 L222,82 L40,82 Z" fill="#B91C1C"/>
+      <rect x="196" y="34" width="24" height="28" fill="#F8FAFC" stroke="#475569" stroke-width="1"/>
+      <rect x="200" y="39" width="16" height="5" fill="#1E293B"/>
+      <rect x="206" y="25" width="7" height="9" fill="#B91C1C"/>
+      <!-- Stacked shipping containers with tariff labels -->
+      <rect x="38" y="47" width="48" height="15" fill="#B91C1C" stroke="#FAF5EA" stroke-width="0.8"/>
+      <text x="62" y="57.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.2" font-weight="800" fill="#FFFFFF">CHINA 20%</text>
+      <rect x="87" y="47" width="46" height="15" fill="#1D4ED8" stroke="#FAF5EA" stroke-width="0.8"/>
+      <text x="110" y="57.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.2" font-weight="800" fill="#FFFFFF">EU 15%</text>
+      <rect x="134" y="47" width="56" height="15" fill="#C2410C" stroke="#FAF5EA" stroke-width="0.8"/>
+      <text x="162" y="57.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.2" font-weight="800" fill="#FFFFFF">VIETNAM 35%</text>
+      <rect x="52" y="32" width="48" height="15" fill="#D97706" stroke="#FAF5EA" stroke-width="0.8"/>
+      <text x="76" y="42.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.2" font-weight="800" fill="#FFFFFF">INDIA 25%</text>
+      <rect x="101" y="32" width="54" height="15" fill="#0F766E" stroke="#FAF5EA" stroke-width="0.8"/>
+      <text x="128" y="42.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.6" font-weight="800" fill="#FFFFFF">JP·KR 15%</text>
+      <rect x="156" y="32" width="34" height="15" fill="#475569" stroke="#FAF5EA" stroke-width="0.8"/>
+      <text x="173" y="42.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.6" font-weight="800" fill="#FFFFFF">+5 MORE</text>
+      <!-- Top-right crisp tariff stamp -->
+      <rect x="234" y="7" width="76" height="28" rx="3" fill="#B91C1C"/>
+      <text x="272" y="19" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="800" fill="#FFFFFF">14 NATIONS</text>
+      <text x="272" y="30" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.2" font-weight="700" fill="#FECACA">SECTION 301</text>
+      <!-- Story number badge -->
+      <circle cx="15" cy="90" r="10" fill="#0F766E" stroke="#FAF5EA" stroke-width="1.5"/>
+      <text x="15" y="93.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" font-weight="800" fill="#FFFFFF">1</text>
     </svg>`;
   }
 
-  if (key === 'hormuz') {
-    // Twin-theater tactical map: Red Sea (Hodeidah strikes) + Persian Gulf (Ras Tanura fire & Hormuz mine claim)
-    return `<svg viewBox="0 0 300 94" width="100%" height="94" xmlns="http://www.w3.org/2000/svg">
-      <rect width="300" height="94" rx="4" fill="#E6F2FA" stroke="#E8B4B4" stroke-width="0.9"/>
-      <!-- Arabian Peninsula (Center-SW) -->
-      <path d="M22,22 L76,26 L124,42 L156,56 L178,52 L198,66 L192,86 L136,92 L72,88 L48,70 L32,48 Z" fill="#EFE4CD" stroke="#C5B293" stroke-width="0.9"/>
-      <!-- Iran landmass (NE) -->
-      <path d="M98,0 L300,0 L300,56 L254,50 L214,36 L178,44 L144,26 Z" fill="#E8DFD1" stroke="#BFA98B" stroke-width="0.9"/>
-      <!-- Red Sea shipping lane -->
-      <path d="M18,28 L34,68 L58,88" fill="none" stroke="#1D4ED8" stroke-width="1.2" stroke-dasharray="3,2"/>
-      <!-- Persian Gulf lane -->
-      <path d="M114,26 C146,38 168,49 194,49 C222,49 250,58 278,68" fill="none" stroke="#1D4ED8" stroke-width="1.3" stroke-dasharray="3,2"/>
-      <!-- Hodeidah port coalition strike (SW Yemen) -->
-      <circle cx="56" cy="79" r="7.5" fill="#DC2626" fill-opacity="0.22" stroke="#B91C1C" stroke-width="0.9"/>
-      <polygon points="56,73 57.5,77 61.5,77.5 58,80 59,84 56,81.5 53,84 54,80 50.5,77.5 54.5,77" fill="#B91C1C"/>
-      <text x="68" y="81" font-family="Segoe UI,Arial,sans-serif" font-size="6.8" font-weight="800" fill="#991B1B">HODEIDAH</text>
-      <text x="68" y="89.5" font-family="Segoe UI,Arial,sans-serif" font-size="5.8" font-weight="700" fill="#475569">Coalition strikes</text>
-      <!-- Ras Tanura refinery tanks + confirmed fire/smoke plume -->
-      <rect x="130" y="45" width="7" height="6" rx="1" fill="#64748B"/>
-      <rect x="138" y="43" width="8" height="8" rx="1" fill="#475569"/>
-      <path d="M142,44 C139,38 140.5,34 142.5,31 C144.5,34 146,38 142,44 Z" fill="#DC2626"/>
-      <path d="M144,33 C150,27 158,26 167,24" fill="none" stroke="#334155" stroke-width="3" stroke-linecap="round" stroke-opacity="0.58"/>
-      <text x="128" y="61" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.7" font-weight="800" fill="#991B1B">RAS TANURA</text>
-      <text x="128" y="69" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.7" font-weight="700" fill="#475569">NASA FIRMS plume</text>
-      <!-- Strait of Hormuz 2 claimed mine strikes -->
-      <circle cx="198" cy="50" r="5" fill="#F59E0B" fill-opacity="0.34" stroke="#D97706" stroke-width="1"/>
-      <circle cx="211" cy="53" r="5" fill="#F59E0B" fill-opacity="0.34" stroke="#D97706" stroke-width="1"/>
-      <path d="M195.5,50 L200.5,50 M198,47.5 L198,52.5 M208.5,53 L213.5,53 M211,50.5 L211,55.5" stroke="#B91C1C" stroke-width="1.3"/>
-      <!-- Clean Iran/IRGC callout -->
-      <line x1="204" y1="28" x2="204" y2="44" stroke="#B45309" stroke-width="0.9" stroke-dasharray="2,1.5"/>
-      <text x="176" y="12.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.9" font-weight="800" fill="#7C2D12">IRAN</text>
-      <rect x="135" y="15" width="84" height="12" rx="2" fill="#FFFBEB" stroke="#F59E0B" stroke-width="0.7"/>
-      <text x="177" y="23.2" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.1" font-weight="800" fill="#92400E">IRGC: 2 mined (claim)</text>
-      <text x="249" y="86" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.3" font-weight="800" fill="#1E3A8A">STRAIT OF HORMUZ</text>
-      <!-- Brent Oil Callout Pill -->
-      <rect x="225" y="4" width="71" height="24" rx="3" fill="#B91C1C"/>
-      <text x="260.5" y="14.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.1" font-weight="800" fill="#FFFFFF">BRENT $94.61</text>
-      <text x="260.5" y="23.8" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.5" font-weight="700" fill="#FECACA">+3.5% ON DAY</text>
-      <!-- Top-left label -->
-      <rect x="4" y="4" width="96" height="12.5" rx="2.5" fill="#FFFFFF" fill-opacity="0.92"/>
-      <text x="8" y="12.8" font-family="Segoe UI,Arial,sans-serif" font-size="6.6" font-weight="800" fill="#991B1B">GULF &amp; RED SEA FLASHPOINTS</text>
+  if (key === 'chiprout') {
+    // Full-bleed dark-slate AI microchip + plummeting crimson candlestick/line crash chart
+    return `<svg viewBox="0 0 316 104" width="100%" height="104" xmlns="http://www.w3.org/2000/svg">
+      <rect width="316" height="104" fill="#18202C"/>
+      <!-- Subtle chart grid -->
+      <line x1="0" y1="26" x2="316" y2="26" stroke="#2D3A4F" stroke-width="0.8"/>
+      <line x1="0" y1="52" x2="316" y2="52" stroke="#2D3A4F" stroke-width="0.8"/>
+      <line x1="0" y1="78" x2="316" y2="78" stroke="#2D3A4F" stroke-width="0.8"/>
+      <!-- Stylized AI silicon chip (left) -->
+      <g stroke="#64748B" stroke-width="1.6">
+        <line x1="28" y1="22" x2="28" y2="30"/><line x1="38" y1="22" x2="38" y2="30"/><line x1="48" y1="22" x2="48" y2="30"/><line x1="58" y1="22" x2="58" y2="30"/>
+        <line x1="28" y1="68" x2="28" y2="76"/><line x1="38" y1="68" x2="38" y2="76"/><line x1="48" y1="68" x2="48" y2="76"/><line x1="58" y1="68" x2="58" y2="76"/>
+        <line x1="12" y1="36" x2="20" y2="36"/><line x1="12" y1="46" x2="20" y2="46"/><line x1="12" y1="56" x2="20" y2="56"/>
+        <line x1="66" y1="36" x2="74" y2="36"/><line x1="66" y1="46" x2="74" y2="46"/><line x1="66" y1="56" x2="74" y2="56"/>
+      </g>
+      <rect x="20" y="30" width="46" height="38" rx="4" fill="#0F172A" stroke="#F87171" stroke-width="1.6"/>
+      <text x="43" y="55" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="800" fill="#FCA5A5">AI</text>
+      <!-- Plunging red area + line -->
+      <polygon points="78,24 114,29 144,44 166,56 196,86 196,104 78,104" fill="#EF4444" fill-opacity="0.22"/>
+      <polyline points="78,24 114,29 144,44 166,56 196,86" fill="none" stroke="#EF4444" stroke-width="3"/>
+      <circle cx="196" cy="86" r="4" fill="#FCA5A5" stroke="#B91C1C" stroke-width="1.5"/>
+      <text x="150" y="96" font-family="Segoe UI,Arial,sans-serif" font-size="8.4" font-weight="800" fill="#FDE68A">4,697.51</text>
+      <!-- Right ticker board -->
+      <rect x="206" y="7" width="104" height="90" rx="3" fill="#0F172A" fill-opacity="0.88" stroke="#334155" stroke-width="0.9"/>
+      <text x="213" y="23" font-family="Segoe UI,Arial,sans-serif" font-size="7.8" font-weight="700" fill="#CBD5E1">KOSPI</text>
+      <text x="304" y="23" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="800" fill="#F87171">–6.2%</text>
+      <line x1="212" y1="30" x2="304" y2="30" stroke="#334155" stroke-width="0.7"/>
+      <text x="213" y="45" font-family="Segoe UI,Arial,sans-serif" font-size="7.6" font-weight="700" fill="#CBD5E1">SK HYNIX</text>
+      <text x="304" y="45" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="10.2" font-weight="800" fill="#F87171">–11.1%</text>
+      <line x1="212" y1="52" x2="304" y2="52" stroke="#334155" stroke-width="0.7"/>
+      <text x="213" y="67" font-family="Segoe UI,Arial,sans-serif" font-size="7.6" font-weight="700" fill="#CBD5E1">SAMSUNG</text>
+      <text x="304" y="67" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="10.2" font-weight="800" fill="#F87171">–9.9%</text>
+      <line x1="212" y1="74" x2="304" y2="74" stroke="#334155" stroke-width="0.7"/>
+      <text x="213" y="88" font-family="Segoe UI,Arial,sans-serif" font-size="7.5" font-weight="700" fill="#CBD5E1">TAIEX</text>
+      <text x="304" y="88" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="9.6" font-weight="800" fill="#FBBF24">–4.8%</text>
+      <!-- Story number badge -->
+      <circle cx="15" cy="90" r="10" fill="#B45309" stroke="#FAF5EA" stroke-width="1.5"/>
+      <text x="15" y="93.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" font-weight="800" fill="#FFFFFF">2</text>
     </svg>`;
   }
 
-  return `<svg viewBox="0 0 300 94" width="100%" height="94" xmlns="http://www.w3.org/2000/svg">
-    <rect width="300" height="94" rx="4" fill="#F4F7FE" stroke="#C5D5F7" stroke-width="0.9"/>
-    <text x="8" y="12.5" font-family="Segoe UI,Arial,sans-serif" font-size="7.4" font-weight="800" fill="#1D4ED8" letter-spacing="0.25">LEAKED ROSSTAT WAR DEATHS (2022–SEP 2026)</text>
-    <line x1="28" y1="78" x2="218" y2="78" stroke="#94A3B8" stroke-width="0.8"/>
-    <line x1="28" y1="55" x2="218" y2="55" stroke="#CBD5E1" stroke-width="0.6" stroke-dasharray="2,2"/>
-    <line x1="28" y1="32" x2="218" y2="32" stroke="#CBD5E1" stroke-width="0.6" stroke-dasharray="2,2"/>
-    <text x="24" y="79" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" fill="#64748B">0</text>
-    <text x="24" y="57" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" fill="#64748B">250K</text>
-    <text x="24" y="34" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" fill="#64748B">500K</text>
-    <polygon points="34,78 78,70 122,56 166,39 209,19 209,78" fill="#93C5FD" fill-opacity="0.28"/>
-    <polyline points="34,78 78,70 122,56 166,39 209,19" fill="none" stroke="#60A5FA" stroke-width="1.3" stroke-dasharray="3,2"/>
-    <polygon points="34,78 78,72 122,63 166,50 209,33 209,78" fill="#1D4ED8" fill-opacity="0.24"/>
-    <polyline points="34,78 78,72 122,63 166,50 209,33" fill="none" stroke="#1D4ED8" stroke-width="2.4"/>
-    <circle cx="209" cy="33" r="3.4" fill="#B91C1C" stroke="#FFFFFF" stroke-width="1.1"/>
-    <circle cx="209" cy="19" r="2.6" fill="#1D4ED8"/>
-    <text x="34" y="88" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" fill="#475569">2022</text>
-    <text x="78" y="88" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" fill="#475569">2023</text>
-    <text x="122" y="88" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" fill="#475569">2024</text>
-    <text x="166" y="88" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" fill="#475569">2025</text>
-    <text x="209" y="88" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" font-weight="800" fill="#1E293B">Sep’26</text>
-    <rect x="223" y="18" width="72" height="31" rx="3" fill="#1D4ED8"/>
-    <text x="259" y="31.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.6" font-weight="800" fill="#FFFFFF">490,334</text>
-    <text x="259" y="42.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" font-weight="700" fill="#DBEAFE">ROSSTAT LEAK</text>
-    <rect x="223" y="54" width="72" height="31" rx="3" fill="#FFFFFF" stroke="#93C5FD" stroke-width="0.9"/>
-    <text x="259" y="67.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.1" font-weight="800" fill="#1E3A8A">~700,000</text>
-    <text x="259" y="78" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.9" font-weight="700" fill="#475569">EST. INCL. MISSING</text>
+  // tiangong: Full-bleed orbital space scene with Earth curve, Tiangong station, Shenzhou-24, PK & CN flags
+  return `<svg viewBox="0 0 316 104" width="100%" height="104" xmlns="http://www.w3.org/2000/svg">
+    <rect width="316" height="104" fill="#0E1B33"/>
+    <!-- Stars -->
+    <circle cx="26" cy="18" r="1" fill="#E2E8F0"/><circle cx="72" cy="12" r="1.2" fill="#FEF08A"/>
+    <circle cx="122" cy="20" r="1" fill="#E2E8F0"/><circle cx="212" cy="14" r="1.2" fill="#E2E8F0"/>
+    <circle cx="288" cy="18" r="1" fill="#FEF08A"/><circle cx="256" cy="26" r="1" fill="#E2E8F0"/>
+    <!-- Curved sunlit Earth limb -->
+    <path d="M0,104 Q158,64 316,104 Z" fill="#1D6FA5"/>
+    <path d="M0,104 Q158,64 316,104" fill="none" stroke="#7DD3FC" stroke-width="2.5"/>
+    <!-- Shenzhou-24 docking craft (left-center) -->
+    <rect x="92" y="42" width="28" height="11" rx="4" fill="#E2E8F0"/>
+    <rect x="86" y="34" width="10" height="27" rx="1" fill="#3B82F6"/>
+    <path d="M120,47.5 L142,47.5" stroke="#FACC15" stroke-width="2" stroke-dasharray="3,2"/>
+    <!-- Tiangong orbital station (center-right) -->
+    <rect x="144" y="40" width="94" height="15" rx="4" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1"/>
+    <rect x="176" y="28" width="28" height="39" rx="3" fill="#CBD5E1"/>
+    <!-- Large blue solar arrays -->
+    <rect x="150" y="13" width="22" height="27" fill="#1D4ED8" stroke="#93C5FD" stroke-width="0.9"/>
+    <rect x="150" y="55" width="22" height="27" fill="#1D4ED8" stroke="#93C5FD" stroke-width="0.9"/>
+    <rect x="210" y="13" width="22" height="27" fill="#1D4ED8" stroke="#93C5FD" stroke-width="0.9"/>
+    <rect x="210" y="55" width="22" height="27" fill="#1D4ED8" stroke="#93C5FD" stroke-width="0.9"/>
+    <!-- Pakistan Flag (top-left) -->
+    <rect x="12" y="10" width="30" height="19" fill="#15803D" stroke="#FFFFFF" stroke-width="0.7"/>
+    <rect x="12" y="10" width="7.5" height="19" fill="#FFFFFF"/>
+    <circle cx="30" cy="19.5" r="4.5" fill="#FFFFFF"/>
+    <circle cx="31.5" cy="18.8" r="3.6" fill="#15803D"/>
+    <!-- China Flag -->
+    <rect x="46" y="10" width="30" height="19" fill="#DC2626" stroke="#FFFFFF" stroke-width="0.7"/>
+    <circle cx="53" cy="16" r="2.6" fill="#FACC15"/>
+    <circle cx="59" cy="13.5" r="1" fill="#FACC15"/><circle cx="60.5" cy="16.5" r="1" fill="#FACC15"/><circle cx="59" cy="19.5" r="1" fill="#FACC15"/>
+    <!-- Crisp orbital labels -->
+    <text x="158" y="96" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.6" font-weight="800" fill="#FFFFFF" letter-spacing="0.4">SHENZHOU-24  ·  TIANGONG DOCKED 03:56 UTC</text>
+    <!-- Story number badge -->
+    <circle cx="15" cy="90" r="10" fill="#B45309" stroke="#FAF5EA" stroke-width="1.5"/>
+    <text x="15" y="93.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="10" font-weight="800" fill="#FFFFFF">3</text>
   </svg>`;
 }
 
 export function renderMediumGraphic(
   key:
-    | 'shenzhou'
-    | 'spacex'
     | 'cairo'
     | 'ofgem'
-    | 'kospi'
     | 'westjava'
-    | 'usmacro'
+    | 'gulfwar'
+    | 'ukrainegrid'
     | 'solomons'
     | 'bangladesh'
-    | 'africa'
+    | 'ramaphosa'
+    | 'gaza'
+    | 'netanyahu',
+  num: number,
+  regionColor: string,
+  badgeText: string
 ): string {
+  const overlayBadge = `
+    <rect x="20" y="42" width="${Math.max(54, badgeText.length * 6.4 + 10)}" height="14" rx="2" fill="#141414" fill-opacity="0.86"/>
+    <text x="${20 + Math.max(54, badgeText.length * 6.4 + 10) / 2}" y="51.8" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.5" font-weight="800" fill="#FFFFFF" letter-spacing="0.3">${badgeText}</text>
+    <circle cx="12" cy="49" r="8.5" fill="${regionColor}" stroke="#FAF5EA" stroke-width="1.4"/>
+    <text x="12" y="52.2" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.6" font-weight="800" fill="#FFFFFF">${num}</text>
+  `;
+
   switch (key) {
-    case 'shenzhou':
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#FFFBEB" stroke="#FCD34D" stroke-width="0.8"/>
-        <!-- Launch pad & rocket plume -->
-        <path d="M22,42 Q64,8 122,19" fill="none" stroke="#B45309" stroke-width="1.8" stroke-dasharray="3,2"/>
-        <polygon points="18,43 22,33 26,43" fill="#B91C1C"/>
-        <circle cx="22" cy="43" r="2.6" fill="#F59E0B"/>
-        <text x="24" y="50" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.6" font-weight="800" fill="#78350F">JIUQUAN</text>
-        <!-- Stylized Tiangong station -->
-        <rect x="122" y="16" width="24" height="6.5" rx="2" fill="#1E293B"/>
-        <rect x="115" y="8" width="8" height="22" rx="1" fill="#0369A1"/>
-        <rect x="145" y="8" width="8" height="22" rx="1" fill="#0369A1"/>
-        <text x="134" y="39.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.1" font-weight="800" fill="#1E293B">TIANGONG</text>
-        <text x="134" y="48.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.1" font-weight="800" fill="#15803D">CN + PK CREW</text>
-        <rect x="5" y="4" width="68" height="15" rx="2.5" fill="#B45309"/>
-        <text x="39" y="14" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7" font-weight="800" fill="#FFFFFF">SHENZHOU-24</text>
-        <text x="8" y="28" font-family="Segoe UI,Arial,sans-serif" font-size="6.3" font-weight="700" fill="#92400E">00:18 UTC</text>
-      </svg>`;
-
-    case 'spacex':
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#EEF2F9" stroke="#CBD5E1" stroke-width="0.8"/>
-        <path d="M8,52 A78,36 0 0,1 104,52" fill="#3B82F6" fill-opacity="0.24" stroke="#1D4ED8" stroke-width="1.2"/>
-        <ellipse cx="56" cy="33" rx="44" ry="14" fill="none" stroke="#334155" stroke-width="1" stroke-dasharray="3,2"/>
-        <rect x="19" y="23" width="10" height="5.5" rx="1" fill="#0F766E"/>
-        <rect x="51" y="15" width="10" height="5.5" rx="1" fill="#1D4ED8"/>
-        <rect x="82" y="22" width="10" height="5.5" rx="1" fill="#0F766E"/>
-        <line x1="15" y1="25.8" x2="33" y2="25.8" stroke="#0F766E" stroke-width="1.2"/>
-        <line x1="47" y1="17.8" x2="65" y2="17.8" stroke="#1D4ED8" stroke-width="1.2"/>
-        <rect x="108" y="5" width="71" height="22" rx="2.5" fill="#1E293B"/>
-        <text x="143.5" y="15.8" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.1" font-weight="800" fill="#FFFFFF">1,000,000</text>
-        <text x="143.5" y="23.8" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.8" font-weight="700" fill="#93C5FD">ORBITAL AI NODES</text>
-        <text x="143.5" y="37" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.8" font-weight="800" fill="#334155">FCC “Starmind”</text>
-        <text x="143.5" y="46.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" font-weight="600" fill="#64748B">2033 → 2040 goal</text>
-      </svg>`;
-
     case 'cairo':
-      // Drawn scene: Cairo Ring Road overpass + overturned fuel tanker + fire & smoke plume
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#FFF5F0" stroke="#FDBA74" stroke-width="0.8"/>
-        <!-- Smoke cloud -->
-        <circle cx="44" cy="18" r="10" fill="#475569" fill-opacity="0.32"/>
-        <circle cx="56" cy="14" r="11" fill="#334155" fill-opacity="0.38"/>
-        <circle cx="70" cy="17" r="8" fill="#64748B" fill-opacity="0.28"/>
-        <!-- Flames -->
-        <path d="M36,37 C32,27 38,21 43,16 C46,23 52,20 53,27 C57,22 61,27 57,37 Z" fill="#DC2626"/>
-        <path d="M41,37 C39,30 43,26 46,23 C48,28 52,28 51,37 Z" fill="#F59E0B"/>
-        <!-- Overturned tanker silhouette on Ring Road -->
-        <rect x="6" y="37" width="98" height="6" rx="1" fill="#64748B"/>
-        <line x1="12" y1="40" x2="98" y2="40" stroke="#F8FAFC" stroke-width="1" stroke-dasharray="5,4"/>
-        <rect x="26" y="31" width="26" height="8" rx="3" fill="#1E293B" transform="rotate(-10 39 35)"/>
-        <rect x="64" y="33" width="12" height="5" rx="1" fill="#991B1B"/>
-        <rect x="80" y="33" width="12" height="5" rx="1" fill="#475569"/>
-        <text x="54" y="49.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.9" font-weight="800" fill="#7C2D12">AL-WARRAQ RING RD</text>
-        <!-- Casualty Callout -->
-        <rect x="110" y="5" width="69" height="42" rx="2.5" fill="#B91C1C"/>
-        <text x="144.5" y="15.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.1" font-weight="800" fill="#FECACA">CAIRO / GIZA</text>
-        <text x="144.5" y="31" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="800" fill="#FFFFFF">31+</text>
-        <text x="144.5" y="41.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6" font-weight="800" fill="#FEE2E2">DEAD · 20+ HURT</text>
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="60" fill="#FDE8D8"/>
+        <!-- Billowing smoke & fire -->
+        <circle cx="110" cy="18" r="14" fill="#475569" fill-opacity="0.45"/>
+        <circle cx="132" cy="14" r="16" fill="#334155" fill-opacity="0.5"/>
+        <circle cx="154" cy="18" r="12" fill="#64748B" fill-opacity="0.38"/>
+        <path d="M98,44 C94,30 104,20 112,12 C117,24 125,18 128,28 C134,20 142,28 136,44 Z" fill="#DC2626"/>
+        <path d="M107,44 C104,34 112,27 117,22 C121,30 127,31 125,44 Z" fill="#F59E0B"/>
+        <!-- Cairo Ring Road highway + overturned fuel tanker -->
+        <rect y="42" width="188" height="18" fill="#475569"/>
+        <line x1="10" y1="51" x2="178" y2="51" stroke="#F8FAFC" stroke-width="1.3" stroke-dasharray="9,6"/>
+        <rect x="64" y="31" width="44" height="13" rx="4" fill="#1E293B" transform="rotate(-11 86 38)"/>
+        <rect x="148" y="36" width="22" height="8" rx="1.5" fill="#991B1B"/>
+        ${overlayBadge}
       </svg>`;
 
     case 'ofgem':
-      // Drawn scene: UK Ofgem energy price cap step-jump chart + lightning icon
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="0.8"/>
-        <!-- Step jump bars -->
-        <text x="50" y="10" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" font-weight="800" fill="#1E3A8A">UK OFGEM CAP</text>
-        <rect x="14" y="25" width="28" height="17" rx="1.5" fill="#93C5FD"/>
-        <text x="28" y="22.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.1" font-weight="700" fill="#1E3A8A">£1,723</text>
-        <text x="28" y="49" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.5" fill="#475569">Q4 ’26</text>
-        <!-- Arrow -->
-        <path d="M46,32 L54,20" stroke="#B91C1C" stroke-width="1.6"/>
-        <polygon points="51,20 56,17 55.5,23" fill="#B91C1C"/>
-        <rect x="58" y="14" width="32" height="28" rx="1.5" fill="#1D4ED8"/>
-        <text x="74" y="30" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.7" font-weight="800" fill="#FFFFFF">£2,166</text>
-        <text x="74" y="49" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.5" font-weight="800" fill="#1D4ED8">Jan ’27</text>
-        <!-- Right +26% badge with bolt -->
-        <rect x="99" y="5" width="80" height="42" rx="2.5" fill="#1E3A8A"/>
-        <polygon points="113,12 108,22 113,22 110,32 119,20 114,20" fill="#FACC15"/>
-        <text x="147" y="22" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11.5" font-weight="800" fill="#FFFFFF">+26%</text>
-        <text x="147" y="32" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.9" font-weight="700" fill="#BFDBFE">GAS PRICE SHOCK</text>
-        <text x="140" y="42" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.6" font-weight="700" fill="#93C5FD">+ Atomic test probe</text>
-      </svg>`;
-
-    case 'kospi':
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#FEF2F2" stroke="#FECACA" stroke-width="0.8"/>
-        <line x1="8" y1="16" x2="112" y2="16" stroke="#94A3B8" stroke-width="0.8" stroke-dasharray="2.5,2"/>
-        <text x="10" y="12.5" font-family="Segoe UI,Arial,sans-serif" font-size="6" font-weight="800" fill="#64748B">5,000 LINE</text>
-        <polygon points="10,15 34,19 56,25 78,33 108,43 108,47 10,47" fill="#DC2626" fill-opacity="0.18"/>
-        <polyline points="10,15 34,19 56,25 78,33 108,43" fill="none" stroke="#B91C1C" stroke-width="2.2"/>
-        <circle cx="108" cy="43" r="2.8" fill="#B91C1C"/>
-        <text x="84" y="47" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="800" fill="#991B1B">4,698</text>
-        <rect x="116" y="5" width="63" height="20" rx="2.5" fill="#B91C1C"/>
-        <text x="147.5" y="15" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.8" font-weight="800" fill="#FFFFFF">-6.16%</text>
-        <text x="147.5" y="22.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.5" font-weight="700" fill="#FECACA">SEOUL KOSPI</text>
-        <rect x="116" y="28" width="63" height="19" rx="2.5" fill="#FFFFFF" stroke="#FCA5A5" stroke-width="0.8"/>
-        <text x="147.5" y="38" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.8" font-weight="800" fill="#B91C1C">-2.78%</text>
-        <text x="147.5" y="44.8" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.4" font-weight="700" fill="#475569">NIKKEI 225</text>
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="60" fill="#DBEAFE"/>
+        <!-- Blue gas flame (left) -->
+        <path d="M36,44 C24,33 28,18 38,8 C45,18 52,32 40,44 Z" fill="#1D4ED8"/>
+        <path d="M37,42 C32,35 34,26 38,20 C42,26 44,35 39,42 Z" fill="#93C5FD"/>
+        <!-- Energy Bill Paper Card -->
+        <rect x="76" y="6" width="104" height="48" rx="3" fill="#FFFFFF" stroke="#93C5FD" stroke-width="1.2"/>
+        <text x="84" y="17" font-family="Segoe UI,Arial,sans-serif" font-size="7.4" font-weight="800" fill="#475569">OFGEM ENERGY BILL</text>
+        <text x="84" y="28" font-family="Segoe UI,Arial,sans-serif" font-size="8.4" font-weight="700" fill="#94A3B8" text-decoration="line-through">£1,723</text>
+        <text x="122" y="28" font-family="Segoe UI,Arial,sans-serif" font-size="8.2" font-weight="800" fill="#B91C1C">→ +26%</text>
+        <text x="84" y="47" font-family="Georgia,serif" font-size="18" font-weight="800" fill="#B91C1C">£2,166</text>
+        ${overlayBadge}
       </svg>`;
 
     case 'westjava':
-      // Drawn cross-section: Mountain mine shaft flooded by overflowing river
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#FFF7ED" stroke="#FDBA74" stroke-width="0.8"/>
-        <!-- Hill / earth cross-section -->
-        <path d="M4,20 L38,14 L62,18 L96,20 L96,50 L4,50 Z" fill="#D6C4A6" stroke="#A69072" stroke-width="0.8"/>
-        <!-- Rain streaks -->
-        <line x1="16" y1="5" x2="13" y2="12" stroke="#0284C7" stroke-width="1"/>
-        <line x1="32" y1="4" x2="29" y2="11" stroke="#0284C7" stroke-width="1"/>
-        <line x1="48" y1="5" x2="45" y2="12" stroke="#0284C7" stroke-width="1"/>
-        <!-- Vertical 100m shaft + flooded blue water -->
-        <rect x="44" y="16" width="14" height="30" fill="#451A03"/>
-        <rect x="44" y="26" width="14" height="20" fill="#0284C7" fill-opacity="0.85"/>
-        <path d="M4,18 Q24,14 44,19" fill="none" stroke="#0284C7" stroke-width="2.5"/>
-        <text x="24" y="34" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.1" font-weight="800" fill="#7C2D12">100m</text>
-        <text x="24" y="42" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.5" font-weight="700" fill="#451A03">SHAFT</text>
-        <text x="77" y="35" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.9" font-weight="800" fill="#0369A1">FLOODED</text>
-        <!-- Right stat block -->
-        <rect x="102" y="5" width="77" height="42" rx="2.5" fill="#C2410C"/>
-        <text x="140.5" y="15.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6" font-weight="800" fill="#FFEDD5">BOGOR, W. JAVA</text>
-        <text x="140.5" y="28.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.6" font-weight="800" fill="#FFFFFF">9 DEAD</text>
-        <text x="140.5" y="39.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.1" font-weight="800" fill="#FED7AA">17 TRAPPED</text>
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="22" fill="#CBD5E1"/>
+        <!-- Rain lines -->
+        <g stroke="#0284C7" stroke-width="1.2"><line x1="28" y1="3" x2="24" y2="15"/><line x1="56" y1="4" x2="52" y2="16"/><line x1="128" y1="3" x2="124" y2="15"/><line x1="156" y1="5" x2="152" y2="16"/></g>
+        <!-- Earth cross section -->
+        <path d="M0,22 L72,18 L116,22 L188,20 L188,60 L0,60 Z" fill="#9A7B56"/>
+        <path d="M0,22 L72,18 L116,22 L188,20 L188,27 L0,27 Z" fill="#4D7C0F"/>
+        <!-- 100m vertical gold mine shaft flooded with blue water -->
+        <rect x="82" y="20" width="24" height="38" fill="#291A0D"/>
+        <rect x="82" y="32" width="24" height="26" fill="#0284C7"/>
+        <path d="M12,21 Q48,16 82,23" fill="none" stroke="#0284C7" stroke-width="3.2"/>
+        <text x="148" y="45" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="800" fill="#FEF3C7">100 m</text>
+        <text x="148" y="55" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7" font-weight="700" fill="#FDE68A">17 TRAPPED</text>
+        ${overlayBadge}
       </svg>`;
 
-    case 'usmacro':
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#F0FDFA" stroke="#99F6E4" stroke-width="0.8"/>
-        <text x="31" y="10.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.3" font-weight="800" fill="#0F766E">US Q3 GDP</text>
-        <rect x="9" y="24" width="19" height="18" rx="1.5" fill="#94A3B8"/>
-        <text x="18.5" y="21.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6" font-weight="700" fill="#475569">3.4%</text>
-        <rect x="34" y="18" width="19" height="24" rx="1.5" fill="#0F766E"/>
-        <text x="43.5" y="15.8" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.5" font-weight="800" fill="#0F766E">4.3%</text>
-        <text x="31" y="49" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.7" font-weight="700" fill="#475569">Rev. Up</text>
-        <line x1="61" y1="6" x2="61" y2="46" stroke="#CBD5E1" stroke-width="0.8"/>
-        <rect x="66" y="6" width="51" height="40" rx="2.5" fill="#FEF2F2" stroke="#FCA5A5" stroke-width="0.8"/>
-        <text x="91.5" y="17" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" font-weight="800" fill="#991B1B">OCT PCE</text>
-        <text x="91.5" y="32" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11.2" font-weight="800" fill="#B91C1C">3.8%</text>
-        <text x="91.5" y="42" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.6" font-weight="700" fill="#7F1D1D">Core 3.3%</text>
-        <text x="123" y="14.5" font-family="Segoe UI,Arial,sans-serif" font-size="6.7" font-weight="800" fill="#15803D">DOW 50,183</text>
-        <text x="123" y="25.5" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="700" fill="#B91C1C">S&amp;P -0.25%</text>
-        <text x="123" y="36" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="700" fill="#B91C1C">NDQ -0.62%</text>
-        <text x="123" y="46.5" font-family="Segoe UI,Arial,sans-serif" font-size="6.3" font-weight="800" fill="#B45309">Gold -$175</text>
+    case 'gulfwar':
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="40" fill="#E0F2FE"/>
+        <rect y="40" width="188" height="20" fill="#0369A1"/>
+        <!-- Refinery storage tanks & smokestacks -->
+        <rect x="16" y="28" width="22" height="14" rx="2" fill="#CBD5E1" stroke="#475569" stroke-width="1"/>
+        <rect x="42" y="30" width="18" height="12" rx="2" fill="#94A3B8" stroke="#475569" stroke-width="1"/>
+        <rect x="65" y="18" width="5" height="24" fill="#64748B"/>
+        <!-- Port crane (Hodeidah) -->
+        <path d="M138,42 L144,18 L150,42 M126,22 L168,22" fill="none" stroke="#334155" stroke-width="2"/>
+        <circle cx="156" cy="30" r="8" fill="#DC2626" fill-opacity="0.3"/>
+        <path d="M156,34 C153,27 156,22 158,19 C161,23 163,28 156,34 Z" fill="#DC2626"/>
+        <!-- Intercepted drones starbursts in sky -->
+        <g stroke="#B91C1C" stroke-width="1.6">
+          <line x1="88" y1="12" x2="98" y2="12"/><line x1="93" y1="7" x2="93" y2="17"/>
+          <line x1="112" y1="16" x2="122" y2="16"/><line x1="117" y1="11" x2="117" y2="21"/>
+        </g>
+        <circle cx="93" cy="12" r="6" fill="#F59E0B" fill-opacity="0.35"/>
+        <circle cx="117" cy="16" r="6" fill="#F59E0B" fill-opacity="0.35"/>
+        <!-- Brent badge -->
+        <rect x="130" y="4" width="54" height="12" rx="2" fill="#B91C1C"/>
+        <text x="157" y="12.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7" font-weight="800" fill="#FFFFFF">BRENT $94.61</text>
+        ${overlayBadge}
+      </svg>`;
+
+    case 'ukrainegrid':
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="60" fill="#1E293B"/>
+        <!-- Horizon & nuclear dome silhouette -->
+        <rect y="46" width="188" height="14" fill="#0F172A"/>
+        <path d="M18,46 L18,30 A14,12 0 0,1 46,30 L46,46 Z" fill="#475569"/>
+        <rect x="52" y="24" width="8" height="22" fill="#64748B"/>
+        <!-- Electrical transmission pylon with severed line & yellow sparks -->
+        <path d="M114,46 L124,12 L134,46 M106,20 L142,20 M110,30 L138,30 M118,30 L130,20 M130,30 L118,20" fill="none" stroke="#94A3B8" stroke-width="1.8"/>
+        <path d="M142,20 Q156,28 164,42" fill="none" stroke="#FACC15" stroke-width="1.6" stroke-dasharray="3,2"/>
+        <polygon points="154,14 148,25 154,25 150,36 162,22 156,22" fill="#FACC15"/>
+        <text x="158" y="54" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.2" font-weight="800" fill="#FDE68A">ZNPP DIESEL</text>
+        ${overlayBadge}
       </svg>`;
 
     case 'solomons':
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="0.8"/>
-        <path d="M6,29 L44,27 L56,40 L44,52 L6,52 Z" fill="#E8DFCE" stroke="#94A3B8" stroke-width="0.8"/>
-        <circle cx="94" cy="17" r="3.6" fill="#0369A1"/>
-        <circle cx="101" cy="21" r="2.3" fill="#0369A1"/>
-        <path d="M48,38 Q70,25 91,18" fill="none" stroke="#0369A1" stroke-width="1.9"/>
-        <text x="28" y="44" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.6" font-weight="800" fill="#0C4A6E">AU</text>
-        <text x="86" y="11" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6" font-weight="800" fill="#0369A1">HONIARA</text>
-        <rect x="111" y="5" width="68" height="23" rx="2.5" fill="#0369A1"/>
-        <text x="145" y="16" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="800" fill="#FFFFFF">A$740M</text>
-        <text x="145" y="24.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.8" font-weight="700" fill="#BAE6FD">10-YEAR PACT</text>
-        <rect x="111" y="32" width="68" height="14" rx="2" fill="#FFFFFF" stroke="#0369A1" stroke-width="0.8"/>
-        <text x="145" y="41.2" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6" font-weight="800" fill="#0369A1">NO FOREIGN BASES</text>
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="36" fill="#E0F2FE"/>
+        <rect y="36" width="188" height="24" fill="#0284C7"/>
+        <!-- Australia Flag (left) -->
+        <rect x="16" y="8" width="46" height="26" fill="#1E3A8A" stroke="#FFFFFF" stroke-width="0.8"/>
+        <path d="M16,8 L36,20 M36,8 L16,20 M26,8 L26,20 M16,14 L36,14" stroke="#FFFFFF" stroke-width="2"/>
+        <path d="M26,8 L26,20 M16,14 L36,14" stroke="#DC2626" stroke-width="1"/>
+        <circle cx="52" cy="14" r="1.5" fill="#FFFFFF"/><circle cx="56" cy="21" r="1.5" fill="#FFFFFF"/><circle cx="48" cy="24" r="1.5" fill="#FFFFFF"/>
+        <!-- Solomon Islands Flag (right) -->
+        <rect x="126" y="8" width="46" height="26" fill="#1D4ED8" stroke="#FFFFFF" stroke-width="0.8"/>
+        <polygon points="126,34 172,8 172,34" fill="#15803D"/>
+        <line x1="126" y1="34" x2="172" y2="8" stroke="#FACC15" stroke-width="3.2"/>
+        <!-- Signed Treaty Parchment center -->
+        <rect x="74" y="10" width="40" height="34" rx="2" fill="#FFFDF7" stroke="#475569" stroke-width="1"/>
+        <line x1="80" y1="18" x2="108" y2="18" stroke="#64748B" stroke-width="1.3"/>
+        <line x1="80" y1="24" x2="108" y2="24" stroke="#64748B" stroke-width="1.3"/>
+        <line x1="80" y1="30" x2="100" y2="30" stroke="#64748B" stroke-width="1.3"/>
+        <circle cx="104" cy="36" r="4.5" fill="#0369A1"/>
+        ${overlayBadge}
       </svg>`;
 
     case 'bangladesh':
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#FFF7ED" stroke="#FDBA74" stroke-width="0.8"/>
-        <rect x="10" y="28" width="23" height="14" rx="1.5" fill="#94A3B8"/>
-        <text x="21.5" y="25" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.2" font-weight="700" fill="#475569">৳12.5k</text>
-        <text x="21.5" y="49" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.6" fill="#64748B">Old</text>
-        <rect x="39" y="20" width="23" height="22" rx="1.5" fill="#C2410C"/>
-        <text x="50.5" y="17" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.6" font-weight="800" fill="#C2410C">৳17k</text>
-        <text x="50.5" y="49" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.6" font-weight="700" fill="#9A3412">Board</text>
-        <rect x="68" y="15" width="23" height="27" rx="1.5" fill="none" stroke="#B91C1C" stroke-width="1.2" stroke-dasharray="2.5,1.5"/>
-        <text x="79.5" y="12" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.3" font-weight="800" fill="#B91C1C">৳18k+</text>
-        <text x="79.5" y="49" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.6" fill="#B91C1C">Unions</text>
-        <!-- Factory sawtooth silhouette + 140+ badge -->
-        <path d="M100,15 L114,8 L114,15 L128,8 L128,15 L142,8 L142,15 L179,15 L179,46 L100,46 Z" fill="#B91C1C"/>
-        <text x="139.5" y="28.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11.2" font-weight="800" fill="#FFFFFF">140+</text>
-        <text x="139.5" y="38" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6" font-weight="800" fill="#FECACA">FACTORIES SHUT</text>
-        <text x="139.5" y="44.2" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.3" fill="#FEE2E2">4–2 vote · +36%</text>
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="60" fill="#FEF3C7"/>
+        <!-- Factory sawtooth silhouette -->
+        <path d="M12,28 L34,14 L34,28 L56,14 L56,28 L78,14 L78,28 L92,28 L92,56 L12,56 Z" fill="#9A3412"/>
+        <rect x="20" y="34" width="12" height="8" fill="#FDE68A"/><rect x="38" y="34" width="12" height="8" fill="#FDE68A"/>
+        <rect x="56" y="34" width="12" height="8" fill="#FDE68A"/><rect x="74" y="34" width="12" height="8" fill="#FDE68A"/>
+        <!-- Wage step bars on right -->
+        <rect x="106" y="30" width="24" height="20" fill="#94A3B8"/>
+        <text x="118" y="27" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.8" font-weight="700" fill="#475569">12.5k</text>
+        <rect x="136" y="18" width="24" height="32" fill="#15803D"/>
+        <text x="148" y="15" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="7.4" font-weight="800" fill="#15803D">17k</text>
+        <text x="172" y="25" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.5" font-weight="800" fill="#B91C1C">+36%</text>
+        <text x="171" y="42" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.8" font-weight="800" fill="#991B1B">140+</text>
+        <text x="171" y="49" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6" font-weight="700" fill="#991B1B">SHUT</text>
+        ${overlayBadge}
       </svg>`;
 
-    case 'africa':
-      // Drawn stylized Africa continent highlighting DRC Ebola hotspot & Cape Town High Court
-      return `<svg viewBox="0 0 184 52" width="100%" height="52" xmlns="http://www.w3.org/2000/svg">
-        <rect width="184" height="52" rx="3" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="0.8"/>
-        <!-- Stylized Africa silhouette (center) -->
-        <path d="M74,6 L96,6 L108,14 L109,24 L101,34 L94,47 L86,47 L81,34 L77,25 L68,18 Z"
-          fill="#DCFCE7" stroke="#15803D" stroke-width="1"/>
-        <!-- DRC red hotspot dot -->
-        <circle cx="94" cy="24" r="4.2" fill="#DC2626" fill-opacity="0.28"/>
-        <circle cx="94" cy="24" r="2.2" fill="#B91C1C"/>
-        <!-- Cape Town green court dot -->
-        <circle cx="90" cy="44" r="2.5" fill="#15803D"/>
-        <!-- Left callout: Cape Town Court -->
-        <line x1="65" y1="38" x2="88" y2="44" stroke="#15803D" stroke-width="0.9"/>
-        <rect x="4" y="8" width="62" height="36" rx="2.5" fill="#15803D"/>
-        <text x="35" y="18" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.9" font-weight="800" fill="#DCFCE7">SA HIGH COURT</text>
-        <text x="35" y="30" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9" font-weight="800" fill="#FFFFFF">VOIDED</text>
-        <text x="35" y="40" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.5" font-weight="700" fill="#BBF7D0">Sec. 89 report</text>
-        <!-- Right callout: DRC Ebola -->
-        <line x1="97" y1="24" x2="116" y2="24" stroke="#B91C1C" stroke-width="0.9"/>
-        <rect x="116" y="8" width="64" height="36" rx="2.5" fill="#FFFFFF" stroke="#FCA5A5" stroke-width="0.9"/>
-        <text x="148" y="18" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.9" font-weight="800" fill="#B91C1C">DRC EBOLA</text>
-        <text x="148" y="30.5" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.2" font-weight="800" fill="#991B1B">11,700+</text>
-        <text x="148" y="40" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="5.5" font-weight="700" fill="#475569">Medics flee</text>
+    case 'ramaphosa':
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="60" fill="#DCFCE7"/>
+        <!-- Classical Pillared High Court Facade -->
+        <polygon points="28,22 94,6 160,22" fill="#15803D"/>
+        <rect x="34" y="22" width="120" height="5" fill="#14532D"/>
+        <rect x="44" y="27" width="10" height="24" fill="#FFFFFF" stroke="#15803D" stroke-width="0.8"/>
+        <rect x="70" y="27" width="10" height="24" fill="#FFFFFF" stroke="#15803D" stroke-width="0.8"/>
+        <rect x="108" y="27" width="10" height="24" fill="#FFFFFF" stroke="#15803D" stroke-width="0.8"/>
+        <rect x="134" y="27" width="10" height="24" fill="#FFFFFF" stroke="#15803D" stroke-width="0.8"/>
+        <rect x="28" y="51" width="132" height="6" fill="#14532D"/>
+        <!-- Gavel in center doorway -->
+        <rect x="86" y="31" width="16" height="7" rx="1.5" fill="#78350F" transform="rotate(-25 94 34)"/>
+        <line x1="94" y1="36" x2="104" y2="48" stroke="#78350F" stroke-width="2.6"/>
+        ${overlayBadge}
+      </svg>`;
+
+    case 'gaza':
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="60" fill="#EAE0D2"/>
+        <!-- Dawn horizon -->
+        <rect y="44" width="188" height="16" fill="#C7B8A1"/>
+        <!-- Damaged concrete buildings -->
+        <rect x="16" y="16" width="38" height="32" fill="#78716C"/>
+        <rect x="22" y="22" width="7" height="7" fill="#292524"/><rect x="36" y="22" width="7" height="7" fill="#292524"/>
+        <rect x="22" y="34" width="7" height="7" fill="#292524"/>
+        <path d="M62,48 L62,14 L82,22 L92,16 L104,28 L104,48 Z" fill="#57534E"/>
+        <!-- Smoke plume -->
+        <circle cx="88" cy="14" r="10" fill="#475569" fill-opacity="0.45"/>
+        <circle cx="100" cy="10" r="8" fill="#64748B" fill-opacity="0.35"/>
+        <!-- Al-Rantisi Hospital red cross + power-off icon -->
+        <rect x="122" y="14" width="54" height="34" rx="2" fill="#FFFFFF" stroke="#B91C1C" stroke-width="1"/>
+        <rect x="142" y="22" width="14" height="4.5" fill="#DC2626"/>
+        <rect x="146.7" y="17.3" width="4.5" height="14" fill="#DC2626"/>
+        <text x="149" y="42" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="800" fill="#991B1B">POWER OUT</text>
+        ${overlayBadge}
+      </svg>`;
+
+    case 'netanyahu':
+      return `<svg viewBox="0 0 188 60" width="100%" height="60" xmlns="http://www.w3.org/2000/svg">
+        <rect width="188" height="60" fill="#F5EFE6"/>
+        <!-- Courthouse wood bench -->
+        <rect x="0" y="40" width="188" height="20" fill="#78350F"/>
+        <!-- 3 Case Dockets: 1000, 2000, 4000 -->
+        <rect x="18" y="16" width="40" height="24" rx="2" fill="#E2D4BA" stroke="#92400E" stroke-width="1"/>
+        <text x="38" y="31" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.5" font-weight="800" fill="#451A03">1000</text>
+        <rect x="68" y="16" width="40" height="24" rx="2" fill="#E2D4BA" stroke="#92400E" stroke-width="1"/>
+        <text x="88" y="31" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="8.5" font-weight="800" fill="#451A03">2000</text>
+        <rect x="118" y="10" width="52" height="30" rx="2" fill="#FEF2F2" stroke="#B91C1C" stroke-width="1.5"/>
+        <text x="144" y="23" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="9.5" font-weight="800" fill="#B91C1C">4000</text>
+        <text x="144" y="34" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="6.6" font-weight="800" fill="#991B1B">RETHINK</text>
+        ${overlayBadge}
       </svg>`;
   }
 }
