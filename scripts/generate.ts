@@ -8,17 +8,20 @@ import {
   EDITION_DECK,
   REGIONS,
   REGION_MAP,
-  FIELDS_SUMMARY,
   KEY_METRICS,
   TIMELINE_EVENTS,
   HERO_STORIES,
   MEDIUM_STORIES,
   DIGEST_LEFT,
   DIGEST_RIGHT,
+  MAP_PINS,
+  MAP_SECONDARY_DOTS,
   EXCLUDED_TUE_24,
   EXCLUDED_THU_26,
   type EpistemicTag,
   type DigestStory,
+  type RegionId,
+  type NewsField,
 } from '../data/stories.ts';
 import { renderHeroGraphic, renderMediumGraphic } from './illustrations.ts';
 import { renderWorldMapSvg } from './world-map.ts';
@@ -39,11 +42,44 @@ function epistemicStyle(tag: EpistemicTag): string {
 }
 
 function buildHtml(): string {
-  const totalStories = REGIONS.reduce((sum, r) => sum + r.count, 0);
+  const allStories: { num: number; region: RegionId; field: NewsField }[] = [
+    ...HERO_STORIES,
+    ...MEDIUM_STORIES,
+    ...DIGEST_LEFT,
+    ...DIGEST_RIGHT,
+  ];
+  const totalStories = allStories.length;
+
+  // Programmatic integrity assertions so counts can never contradict each other
+  const nums = allStories.map((s) => s.num);
+  for (let i = 0; i < totalStories; i++) {
+    if (nums[i] !== i + 1) {
+      throw new Error(`Story numbering mismatch at index ${i}: expected ${i + 1}, got ${nums[i]}`);
+    }
+  }
+  const regionCounts = new Map<RegionId, number>();
+  const fieldCounts = new Map<NewsField, number>();
+  for (const s of allStories) {
+    regionCounts.set(s.region, (regionCounts.get(s.region) ?? 0) + 1);
+    fieldCounts.set(s.field, (fieldCounts.get(s.field) ?? 0) + 1);
+  }
+  const glCount = regionCounts.get('GL') ?? 0;
+  if (MAP_PINS.length + MAP_SECONDARY_DOTS.length + glCount !== totalStories) {
+    throw new Error(
+      `Map count mismatch: pins(${MAP_PINS.length}) + dots(${MAP_SECONDARY_DOTS.length}) + GL(${glCount}) != ${totalStories}`
+    );
+  }
+
+  const fieldsList = [...fieldCounts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .map(([field, count]) => (count > 1 ? `${field} ${count}` : field));
+  const fieldsSummary = `${fieldCounts.size} FIELDS · ${fieldsList.join(' · ')}`;
 
   const regionBarHtml = REGIONS.map((r) => {
+    const count = regionCounts.get(r.id) ?? 0;
+    if (count === 0) throw new Error(`Region ${r.id} has 0 stories`);
     const minPx = r.id === 'OC' ? 66 : r.id === 'GL' ? 58 : r.id === 'LA' ? 62 : 70;
-    return `<div class="reg-seg" style="flex:${r.count} 1 0;min-width:${minPx}px;background:${r.color}">${esc(r.shortLabel.toUpperCase())} ${r.count}</div>`;
+    return `<div class="reg-seg" style="flex:${count} 1 0;min-width:${minPx}px;background:${r.color}">${esc(r.shortLabel.toUpperCase())} ${count}</div>`;
   }).join('');
 
   const metricsHtml = KEY_METRICS.map(
@@ -73,12 +109,17 @@ function buildHtml(): string {
     </article>`;
   }).join('');
 
-  const mediumHtml = MEDIUM_STORIES.map((m) => {
+  const mediumHtml = MEDIUM_STORIES.map((m, idx) => {
     const reg = REGION_MAP[m.region];
+    const rowClass = idx < 5 ? 'med-row-top' : 'med-row-bot';
+    const colClass = idx % 5 === 4 ? 'med-col-last' : '';
     return `
-    <article class="med-col">
+    <article class="med-col ${rowClass} ${colClass}">
       <div class="med-art">${renderMediumGraphic(m.graphicKey, m.num, reg.color, m.badgeText)}</div>
-      <div class="med-loc" style="color:${reg.color}">${esc(m.locationBeat)}</div>
+      <div class="med-meta">
+        <span class="med-loc" style="color:${reg.color}">${esc(m.locationBeat)}</span>
+        <span class="med-epi" style="${epistemicStyle(m.epistemic)}">${esc(m.epistemic)}</span>
+      </div>
       <h3 class="med-head">${esc(m.headline)}</h3>
       <p class="med-body">${esc(m.summary)}</p>
     </article>`;
@@ -97,7 +138,8 @@ function buildHtml(): string {
   const digestRightHtml = DIGEST_RIGHT.map(renderDigestRow).join('');
 
   const legendHtml = REGIONS.map(
-    (r) => `<span class="leg-item"><span class="leg-dot" style="background:${r.color}"></span>${esc(r.shortLabel)}</span>`
+    (r) =>
+      `<span class="leg-item"><span class="leg-dot" style="background:${r.color}"></span>${esc(r.shortLabel)} (${regionCounts.get(r.id)})</span>`
   ).join('');
 
   return `<!DOCTYPE html>
@@ -180,7 +222,7 @@ function buildHtml(): string {
     white-space: nowrap;
   }
   .fields-bar {
-    font-size: 7.1px;
+    font-size: 7.05px;
     font-weight: 700;
     color: #44403C;
     padding: 2.5px 0;
@@ -189,7 +231,7 @@ function buildHtml(): string {
     overflow: hidden;
   }
 
-  /* 5 HUGE OPEN KEY NUMBERS (NO BOXES!) */
+  /* 5 HUGE OPEN KEY NUMBERS */
   .kpi-row {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -235,11 +277,10 @@ function buildHtml(): string {
   .tl-head { color: #FACC15; font-weight: 800; letter-spacing: 0.4px; }
   .tl-item strong { color: #FFFFFF; font-weight: 800; }
 
-  /* 3 FULL-BLEED HERO LEADS (UNBOXED EDITORIAL COLUMNS) */
+  /* 3 FULL-BLEED HERO LEADS WITH ARCHIVAL COLUMN HAIRLINES */
   .hero-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
     padding-bottom: 6px;
     border-bottom: 1.6px solid #1C1917;
   }
@@ -248,7 +289,11 @@ function buildHtml(): string {
     flex-direction: column;
     gap: 3px;
     min-width: 0;
+    padding: 0 9px;
+    border-right: 0.75px solid #D6CCB8;
   }
+  .hero-col:first-child { padding-left: 0; }
+  .hero-col:last-child { padding-right: 0; border-right: none; }
   .hero-art { width: 100%; height: 104px; }
   .hero-meta {
     display: flex;
@@ -258,12 +303,13 @@ function buildHtml(): string {
   }
   .loc-beat { font-size: 7.5px; font-weight: 800; letter-spacing: 0.35px; }
   .epi-badge {
-    font-size: 6.4px;
+    font-size: 6.3px;
     font-weight: 800;
-    padding: 0.8px 4px;
+    padding: 0.7px 4px;
     border: 0.8px solid transparent;
     border-radius: 2px;
     letter-spacing: 0.3px;
+    flex-shrink: 0;
   }
   .hero-head {
     font-family: Georgia, "Times New Roman", serif;
@@ -288,13 +334,11 @@ function buildHtml(): string {
   }
   .why-line span { color: #B91C1C; font-weight: 800; letter-spacing: 0.25px; margin-right: 3px; }
 
-  /* 10 MEDIUM ILLUSTRATED STORIES (2 ROWS x 5 UNBOXED COLUMNS) */
+  /* 10 MEDIUM ILLUSTRATED STORIES (2 ROWS x 5 ARCHIVAL COLUMNS WITH EPISTEMIC BADGES) */
   .med-grid {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    column-gap: 10px;
-    row-gap: 6px;
-    padding: 6px 0 6px 0;
+    padding: 5px 0 5px 0;
     border-bottom: 1.4px solid #1C1917;
   }
   .med-col {
@@ -302,30 +346,53 @@ function buildHtml(): string {
     flex-direction: column;
     gap: 2px;
     min-width: 0;
+    padding: 0 6.5px;
+    border-right: 0.7px solid #DCD2BE;
   }
+  .med-col:nth-child(5n + 1) { padding-left: 0; }
+  .med-col-last { padding-right: 0; border-right: none; }
+  .med-row-top { padding-bottom: 4.5px; border-bottom: 0.7px solid #E2D9C7; }
+  .med-row-bot { padding-top: 4.5px; }
   .med-art { width: 100%; height: 60px; }
-  .med-loc {
-    font-size: 6.6px;
-    font-weight: 800;
-    letter-spacing: 0.25px;
+  .med-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3px;
     padding-top: 1px;
+    min-width: 0;
+  }
+  .med-loc {
+    font-size: 6.4px;
+    font-weight: 800;
+    letter-spacing: 0.2px;
     white-space: nowrap;
     overflow: hidden;
+    min-width: 0;
+  }
+  .med-epi {
+    font-size: 5.5px;
+    font-weight: 800;
+    padding: 0.4px 2.8px;
+    border: 0.7px solid transparent;
+    border-radius: 2px;
+    letter-spacing: 0.2px;
+    flex-shrink: 0;
   }
   .med-head {
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 11px;
+    font-size: 10.9px;
     font-weight: 700;
     line-height: 1.1;
     color: #111111;
   }
   .med-body {
-    font-size: 7.7px;
-    line-height: 1.18;
+    font-size: 7.65px;
+    line-height: 1.17;
     color: #292524;
   }
 
-  /* BOTTOM: WORLD LOCATOR MAP (LEFT) + 36 SINGLE-LINE BRIEFS (RIGHT) */
+  /* BOTTOM: WORLD LOCATOR MAP (LEFT) + 36 SINGLE-STORY BRIEFS (RIGHT) */
   .bottom-grid {
     display: grid;
     grid-template-columns: 314px minmax(0, 1fr);
@@ -349,8 +416,8 @@ function buildHtml(): string {
     background: #EFE9DC;
     border: 0.7px solid #C8BEA8;
     border-radius: 2px;
-    padding: 2px 3px;
-    font-size: 6.4px;
+    padding: 2.2px 3px;
+    font-size: 6.35px;
     font-weight: 800;
     color: #1E293B;
     text-align: center;
@@ -367,12 +434,12 @@ function buildHtml(): string {
     border-bottom: 0.9px solid #C8BEA8;
     padding-bottom: 1.5px;
   }
-  .sec-head span { font-size: 6.9px; font-weight: 600; color: #57534E; letter-spacing: 0; }
+  .sec-head span { font-size: 6.85px; font-weight: 600; color: #57534E; letter-spacing: 0; }
   .map-legend {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2px 5px;
-    font-size: 6.9px;
+    gap: 2.5px 5px;
+    font-size: 6.8px;
     font-weight: 700;
     color: #292524;
   }
@@ -388,7 +455,7 @@ function buildHtml(): string {
   .digest-cols {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0 10px;
+    gap: 0 11px;
     flex: 1;
     min-height: 0;
   }
@@ -403,7 +470,7 @@ function buildHtml(): string {
     display: flex;
     align-items: center;
     gap: 3.5px;
-    font-size: 7.4px;
+    font-size: 7.45px;
     line-height: 1.05;
     color: #1C1917;
     white-space: nowrap;
@@ -476,14 +543,14 @@ function buildHtml(): string {
   <div class="page">
     <div class="top-ribbon">
       <span>THE WORLD IN ONE DAY</span>
-      <span>${totalStories} VERIFIED STORIES · 9 REGIONS · 18 FIELDS · ALL FIRST REPORTED ON WEDNESDAY 25 NOVEMBER 2026</span>
+      <span>${totalStories} VERIFIED STORIES · ${REGIONS.length} REGIONS · ${fieldCounts.size} FIELDS · ALL FIRST REPORTED ON WEDNESDAY 25 NOVEMBER 2026</span>
     </div>
 
     <h1 class="mast-title">${esc(EDITION_DATE)}</h1>
     <div class="mast-deck">${esc(EDITION_DECK)}</div>
 
     <div class="reg-bar">${regionBarHtml}</div>
-    <div class="fields-bar">${esc(FIELDS_SUMMARY)}</div>
+    <div class="fields-bar">${esc(fieldsSummary)}</div>
 
     <section class="kpi-row">${metricsHtml}</section>
 
@@ -498,18 +565,18 @@ function buildHtml(): string {
 
     <section class="bottom-grid">
       <div class="map-col">
-        <div class="sec-head">WHERE IT HAPPENED <span>pins #1–#13 · dots = briefs</span></div>
-        ${renderWorldMapSvg()}
+        <div class="sec-head">WHERE IT HAPPENED <span>13 pins · 34 dots · 2 global</span></div>
+        ${renderWorldMapSvg(totalStories)}
         <div class="space-strip">
           <div class="sp-chip">#3 Orbit · Tiangong</div>
-          <div class="sp-chip">#49 ESA Hera · DART</div>
+          <div class="sp-chip">#48 ESA Hera · DART</div>
           <div class="sp-chip">#49 UN · 47K Femicides</div>
         </div>
         <div class="map-legend">${legendHtml}</div>
       </div>
 
       <div class="digest-wrap">
-        <div class="sec-head">ALSO ON WEDNESDAY 25 NOVEMBER <span>36 more dated stories · 18 + 18 across all 9 regions</span></div>
+        <div class="sec-head">ALSO ON WEDNESDAY 25 NOVEMBER <span>36 single-story briefs · 18 + 18 across all 9 regions</span></div>
         <div class="digest-cols">
           <div class="dig-col">${digestLeftHtml}</div>
           <div class="dig-col">${digestRightHtml}</div>

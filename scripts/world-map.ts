@@ -1,33 +1,49 @@
 import { MAP_PINS, MAP_SECONDARY_DOTS, REGION_MAP } from '../data/stories.ts';
 
 // Clean light-parchment World Locator Map showing the 13 illustrated stories as bold numbered pins
-// and the 36 digest stories as subtle regional dots (zero pin crowding).
-export function renderWorldMapSvg(): string {
+// and all 34 geographic digest stories as crisp regional dots (plus 2 Space/Global chips below => 49 exact).
+const SCALE_X = 0.96;
+const SCALE_Y = 1.16;
+const OFF_X = -4;
+const OFF_Y = 11;
+
+function project(x: number, y: number): { sx: number; sy: number } {
+  return {
+    sx: +(x * SCALE_X + OFF_X).toFixed(1),
+    sy: +(y * SCALE_Y + OFF_Y).toFixed(1),
+  };
+}
+
+export function renderWorldMapSvg(totalStories: number): string {
   const secondarySvg = MAP_SECONDARY_DOTS.map((d) => {
     const color = REGION_MAP[d.region].color;
-    return `<circle cx="${d.x}" cy="${d.y}" r="2.3" fill="${color}" fill-opacity="0.72" stroke="#FAF5EA" stroke-width="0.6"/>`;
+    const { sx, sy } = project(d.x, d.y);
+    return `<circle cx="${sx}" cy="${sy}" r="2.3" fill="${color}" fill-opacity="0.8" stroke="#FAF5EA" stroke-width="0.6"/>`;
   }).join('');
 
   const pinsSvg = MAP_PINS.map((pin) => {
     const color = REGION_MAP[pin.region].color;
+    const { sx, sy } = project(pin.x, pin.y);
     const isHero = pin.num <= 3;
     const r = isHero ? 6.8 : 5.6;
-    const fs = isHero ? 7.2 : 6.0;
+    const fs = isHero ? 7.1 : 6.0;
     return `
       <g>
-        <circle cx="${pin.x}" cy="${pin.y}" r="${(r + 1.2).toFixed(1)}" fill="#FFFFFF" fill-opacity="0.95"/>
-        <circle cx="${pin.x}" cy="${pin.y}" r="${r.toFixed(1)}" fill="${color}"/>
-        <text x="${pin.x}" y="${(pin.y + fs * 0.35).toFixed(1)}" text-anchor="middle"
+        <circle cx="${sx}" cy="${sy}" r="${(r + 1.1).toFixed(1)}" fill="#FFFFFF" fill-opacity="0.96"/>
+        <circle cx="${sx}" cy="${sy}" r="${r.toFixed(1)}" fill="${color}"/>
+        <text x="${sx}" y="${(sy + fs * 0.35).toFixed(1)}" text-anchor="middle"
           font-family="Segoe UI,Arial,sans-serif" font-size="${fs}" font-weight="800" fill="#FFFFFF">${pin.num}</text>
       </g>
     `;
   }).join('');
 
-  return `<svg viewBox="0 0 314 188" width="100%" height="188" xmlns="http://www.w3.org/2000/svg">
-    <rect width="314" height="188" rx="3" fill="#E5EFF5" stroke="#C8BEA8" stroke-width="0.9"/>
-    <g transform="translate(0, 14) scale(0.935, 0.96)">
-      <!-- Subtle graticule -->
-      <line x1="0" y1="84" x2="336" y2="84" stroke="#BBD4E3" stroke-width="0.7" stroke-dasharray="3,2"/>
+  return `<svg viewBox="0 0 314 214" width="100%" height="214" xmlns="http://www.w3.org/2000/svg">
+    <rect width="314" height="214" rx="3" fill="#E5EFF5" stroke="#C8BEA8" stroke-width="0.9"/>
+    <g transform="translate(${OFF_X}, ${OFF_Y}) scale(${SCALE_X}, ${SCALE_Y})">
+      <!-- Subtle equator & latitude lines -->
+      <line x1="4" y1="84" x2="332" y2="84" stroke="#BBD4E3" stroke-width="0.7" stroke-dasharray="3,2"/>
+      <line x1="4" y1="46" x2="332" y2="46" stroke="#C8DCE8" stroke-width="0.5" stroke-dasharray="2,3"/>
+      <line x1="4" y1="122" x2="332" y2="122" stroke="#C8DCE8" stroke-width="0.5" stroke-dasharray="2,3"/>
       <!-- North America -->
       <path d="M18,22 L42,16 L78,18 L108,24 L118,36 L104,48 L96,60 L82,68 L74,80 L64,76 L58,64 L48,54 L36,42 L22,36 Z"
         fill="#DDD2BC" stroke="#B7A88E" stroke-width="0.8"/>
@@ -62,11 +78,9 @@ export function renderWorldMapSvg(): string {
       <path d="M318,144 L326,140 L328,150 L320,154 Z" fill="#DDD2BC" stroke="#B7A88E" stroke-width="0.7"/>
       <circle cx="319" cy="113" r="3" fill="#DDD2BC" stroke="#B7A88E" stroke-width="0.7"/>
     </g>
-    <g transform="translate(0, 14) scale(1, 1.055)">
-      ${secondarySvg}
-      ${pinsSvg}
-    </g>
-    <text x="6" y="182" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="700" fill="#64748B">13 FEATURED PINS (#1–#13) · 26 REGIONAL DOTS</text>
-    <text x="308" y="182" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="700" fill="#475569">49 STORIES TOTAL</text>
+    ${secondarySvg}
+    ${pinsSvg}
+    <text x="6" y="207.5" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="700" fill="#64748B">13 PINS (#1–#13) · ${MAP_SECONDARY_DOTS.length} BRIEF DOTS · 2 GLOBAL</text>
+    <text x="308" y="207.5" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="6.4" font-weight="800" fill="#334155">${totalStories} STORIES</text>
   </svg>`;
 }
